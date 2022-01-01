@@ -33,7 +33,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 /* font-awesome */
 .fas {
   color: red;

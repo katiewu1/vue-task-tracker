@@ -1,6 +1,16 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" />
+    <Header
+      @toggle-add-task="toggleAddTask"
+      title="Task Tracker"
+      :showAddTask="showAddTask"
+    />
+    <!-- pass in true or false value from the data showAddTask -->
+
+    <!-- <div v-if="showAddTask"> -->
+    <div v-show="showAddTask">
+      <AddTask @add-task="addTask" />
+    </div>
     <Tasks
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask"
@@ -12,19 +22,29 @@
 <script>
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 export default {
   name: "App",
   components: {
     Header,
     Tasks,
+    AddTask,
   },
   data() {
     return {
       tasks: [],
+      showAddTask: false,
     };
   },
   methods: {
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask;
+    },
+    addTask(task) {
+      // spreading and then add the new task in the array
+      this.tasks = [...this.tasks, task];
+    },
     deleteTask(id) {
       // console.log("task", id);
       // confirm -> alert
